@@ -4,9 +4,16 @@ import './App.css';
 
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
-// import About from './components/About';
+import About from './components/About';
 import React, { useState} from 'react';
 import Alert from './components/Alert';
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
   const [mode, setMode] = useState('dark'); // whether dark mode is enable or not
@@ -38,12 +45,23 @@ else{
     <>
 {/* <Navbar title="Navbar" aboutText="About me" /> */}
 {/* <Navbar/> */}
+<Router>
 <Navbar title='Navbar' mode={mode}  toggleMode={toggleMode}/>
 <Alert alert={alert}/>
 <div className="container my-3">
-<TextForm showAlert={showAlert} heading="Enter your Text" mode={mode}/>
-{/* <About/> */}
+<Routes>
+  {/* /user -----> Components 1 */}
+  {/* /user/home -----> Components 2  */}
+          <Route exact path="/about">
+            <About />
+          </Route>
+          <Route exact path="/">
+          <TextForm showAlert={showAlert} heading="Enter your Text" mode={mode}/>
+          </Route>
+        </Routes>
+
 </div>
+</Router>
 </>
 );
   }
